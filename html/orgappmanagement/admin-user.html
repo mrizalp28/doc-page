@@ -1,0 +1,769 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Admin user &#8212; Nobackend.id 1.0.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="top" title="Nobackend.id 1.0.0 documentation" href="../index.html" />
+    <link rel="next" title="Working with User Data" href="../usermanagement/working-userdata.html" />
+    <link rel="prev" title="Application" href="application.html" /> 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../usermanagement/working-userdata.html" title="Working with User Data"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="application.html" title="Application"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">Nobackend.id 1.0.0 documentation</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="admin-user">
+<h1>Admin user<a class="headerlink" href="#admin-user" title="Permalink to this headline">¶</a></h1>
+<p>An admin user has full access to perform any operation on all organization accounts of which the admin user is a member. Using the API Services BaaS API, you can create, update, or retrieve an admin user. You can also set or reset an admin user&#8217;s password, activite or reactivate an admin user, and get an admin user&#8217;s activity feed.</p>
+<p>In addition, you can add,  retrieve, or remove an admin user from an organization. For information on these organization-related operations, see [Organization](organization.html).</p>
+<p><strong>Note</strong>: Although not shown in the API examples below, you need to provide a valid access token with each API call. See [Authenticating users and application clients](../security_and_auth/authenticating-users-and-application-clients.html) for details.</p>
+<div class="section" id="creating-an-admin-user">
+<h2>Creating an admin user<a class="headerlink" href="#creating-an-admin-user" title="Permalink to this headline">¶</a></h2>
+<p>Use the POST method to create an admin user.</p>
+<div class="section" id="request-uri">
+<h3>Request URI<a class="headerlink" href="#request-uri" title="Permalink to this headline">¶</a></h3>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">POST</span> <span class="o">/</span><span class="n">management</span><span class="o">/</span><span class="n">organizations</span><span class="o">/</span><span class="p">{</span><span class="n">org</span><span class="p">}</span><span class="o">/</span><span class="n">users</span> <span class="p">{</span><span class="n">request</span> <span class="n">body</span><span class="p">}</span>
+</pre></div>
+</div>
+<p>In the request body send a JSON object that represents the new user, for example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">&quot;username&quot;</span> <span class="p">:</span> <span class="s2">&quot;jim.admin&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;email&quot;</span> <span class="p">:</span> <span class="s2">&quot;jim.admin@gmail.com&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;name&quot;</span> <span class="p">:</span> <span class="s2">&quot;Jim Admin&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;password&quot;</span> <span class="p">:</span> <span class="s2">&quot;test12345&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="example-request">
+<h3>Example - Request<a class="headerlink" href="#example-request" title="Permalink to this headline">¶</a></h3>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">curl</span> <span class="o">-</span><span class="n">X</span> <span class="o">-</span><span class="n">i</span> <span class="n">POST</span> <span class="s2">&quot;https://api.tbaas.co/management/organizations/my-org/users&quot;</span> <span class="o">-</span><span class="n">d</span> <span class="s1">&#39;{&quot;username&quot;:&quot;jim.admin&quot;,&quot;name&quot;:&quot;Jim Admin&quot;,&quot;email&quot;:&quot;jim.admin@gmail.com&quot;,&quot;password&quot;:&quot;test12345&quot;}&#39;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="example-response">
+<h3>Example - Response<a class="headerlink" href="#example-response" title="Permalink to this headline">¶</a></h3>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">&quot;action&quot;</span><span class="p">:</span> <span class="s2">&quot;post&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;ok&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;data&quot;</span><span class="p">:</span>  <span class="p">{</span>
+    <span class="s2">&quot;user&quot;</span><span class="p">:</span>  <span class="p">{</span>
+      <span class="s2">&quot;applicationId&quot;</span><span class="p">:</span> <span class="s2">&quot;00000000-0000-0000-0000-000000000001&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;username&quot;</span><span class="p">:</span> <span class="s2">&quot;jim.admin&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Jim Admin&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;email&quot;</span><span class="p">:</span> <span class="s2">&quot;jim.admin@gmail.com&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;activated&quot;</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span>
+      <span class="s2">&quot;disabled&quot;</span><span class="p">:</span> <span class="n">false</span><span class="p">,</span>
+      <span class="s2">&quot;uuid&quot;</span><span class="p">:</span> <span class="s2">&quot;335b527f-cd0d-11e1-bef8-12331d1c5591&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;adminUser&quot;</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span>
+      <span class="s2">&quot;displayEmailAddress&quot;</span><span class="p">:</span> <span class="s2">&quot;jim.admin &lt;jim.admin@gmail.com&gt;&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;htmldisplayEmailAddress&quot;</span><span class="p">:</span> <span class="s2">&quot;jim.admin &lt;a href=&quot;</span><span class="n">mailto</span><span class="p">:</span><span class="n">jim</span><span class="o">.</span><span class="n">admin</span><span class="nd">@gmail</span><span class="o">.</span><span class="n">com</span><span class="s2">&quot;&gt;jinm.admin@gmail.com&lt;/a&gt;&quot;</span>
+    <span class="p">}</span>
+  <span class="p">},</span>
+  <span class="s2">&quot;timestamp&quot;</span><span class="p">:</span> <span class="mi">1349390189106</span><span class="p">,</span>
+  <span class="s2">&quot;duration&quot;</span><span class="p">:</span> <span class="mi">11808</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="updating-an-admin-user">
+<h2>Updating an admin user<a class="headerlink" href="#updating-an-admin-user" title="Permalink to this headline">¶</a></h2>
+<p>Use the PUT method to update an admin user.</p>
+<div class="section" id="id1">
+<h3>Request URI<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">PUT</span> <span class="o">/</span><span class="n">management</span><span class="o">/</span><span class="n">organizations</span><span class="o">/</span><span class="p">{</span><span class="n">org</span><span class="p">}</span><span class="o">/</span><span class="n">users</span><span class="o">/</span><span class="p">{</span><span class="n">user</span><span class="o">|</span><span class="n">username</span><span class="o">|</span><span class="n">email</span><span class="o">|</span><span class="n">uuid</span><span class="p">}</span> <span class="p">{</span><span class="n">request</span> <span class="n">body</span><span class="p">}</span>
+</pre></div>
+</div>
+<p>Parameters
+===================================== =============================================================================
+Parameters                            Description
+===================================== =============================================================================
+User identifier                       Username, name, email address, or UUID.
+request body                          JSON object containing properties you would like to add/update on user.
+===================================== =============================================================================</p>
+<p>For example, to add city and state to user, send this:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">&quot;city&quot;</span> <span class="p">:</span> <span class="s2">&quot;San Francisco&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;state&quot;</span> <span class="p">:</span> <span class="s2">&quot;California&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id2">
+<h3>Example - Request<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">curl</span> <span class="o">-</span><span class="n">X</span> <span class="o">-</span><span class="n">i</span> <span class="n">PUT</span> <span class="s2">&quot;https://api.tbaas.co/management/organizations/my-org/users/jim.admin&quot;</span> <span class="o">-</span><span class="n">d</span> <span class="s1">&#39;{&quot;city&quot;:&quot;San Francisco&quot;,&quot;state&quot;:&quot;California&quot;}&#39;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id3">
+<h3>Example - Response<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">&quot;action&quot;</span><span class="p">:</span> <span class="s2">&quot;update user info&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;timestamp&quot;</span><span class="p">:</span> <span class="mi">1349479321874</span><span class="p">,</span>
+  <span class="s2">&quot;duration&quot;</span><span class="p">:</span> <span class="mi">0</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="getting-an-admin-user">
+<h2>Getting an admin user<a class="headerlink" href="#getting-an-admin-user" title="Permalink to this headline">¶</a></h2>
+<p>Use the GET method to retrieve details about an admin user.</p>
+<div class="section" id="id4">
+<h3>Request URI<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">GET</span> <span class="o">/</span><span class="n">management</span><span class="o">/</span><span class="n">organizations</span><span class="o">/</span><span class="p">{</span><span class="n">org</span><span class="p">}</span><span class="o">/</span><span class="n">users</span><span class="o">/</span><span class="p">{</span><span class="n">user</span><span class="o">|</span><span class="n">username</span><span class="o">|</span><span class="n">email</span><span class="o">|</span><span class="n">uuid</span><span class="p">}</span>
+</pre></div>
+</div>
+<p>Parameters</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="32%" />
+<col width="68%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Parameters</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>User identifier</td>
+<td>Username, name, email address, or UUID.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="id5">
+<h3>Example - Request<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">curl</span> <span class="o">-</span><span class="n">X</span> <span class="n">GET</span> <span class="s2">&quot;https://api.tbaas.co/management/organizations/my-org/users/jim.admin&quot;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id6">
+<h3>Example - Response<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">&quot;action&quot;</span><span class="p">:</span> <span class="s2">&quot;get admin user&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;ok&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;data&quot;</span><span class="p">:</span>  <span class="p">{</span>
+    <span class="s2">&quot;username&quot;</span><span class="p">:</span> <span class="s2">&quot;jim.admin&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;token&quot;</span><span class="p">:</span> <span class="s2">&quot;YWMt4NqE8Q9GEeLYJhIxPSiO4AAAATo5fQfcG0cEd2h9nwmDmRorkNNrEeQyDOF&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;email&quot;</span><span class="p">:</span> <span class="s2">&quot;edort1@gmail.com&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;organizations&quot;</span><span class="p">:</span>  <span class="p">{</span>
+      <span class="s2">&quot;jim.admin&quot;</span><span class="p">:</span>  <span class="p">{</span>
+        <span class="s2">&quot;users&quot;</span><span class="p">:</span>  <span class="p">{</span>
+          <span class="s2">&quot;jim.admin&quot;</span><span class="p">:</span>  <span class="p">{</span>
+            <span class="s2">&quot;applicationId&quot;</span><span class="p">:</span> <span class="s2">&quot;00000000-0000-0000-0000-000000000001&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;username&quot;</span><span class="p">:</span> <span class="s2">&quot;jim.admin&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Jim Admin&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;email&quot;</span><span class="p">:</span> <span class="s2">&quot;jim.admin@gmail.com&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;activated&quot;</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span>
+            <span class="s2">&quot;disabled&quot;</span><span class="p">:</span> <span class="n">false</span><span class="p">,</span>
+            <span class="s2">&quot;uuid&quot;</span><span class="p">:</span> <span class="s2">&quot;328b526e-cd0c-11e1-bcf8-12424d1c4491&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;adminUser&quot;</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span>
+            <span class="s2">&quot;displayEmailAddress&quot;</span><span class="p">:</span> <span class="s2">&quot;jim.admin &lt;jim.admin@gmail.com&gt;&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;htmldisplayEmailAddress&quot;</span><span class="p">:</span> <span class="s2">&quot;jim.admin &lt;&lt;a href=&quot;</span><span class="n">mailto</span><span class="p">:</span><span class="n">jim</span><span class="o">.</span><span class="n">admin</span><span class="nd">@gmail</span><span class="o">.</span><span class="n">com</span><span class="s2">&quot;&gt;jim.admin@gmail.com&gt;&quot;</span>
+    <span class="p">},</span>
+    <span class="o">...</span>
+    <span class="s2">&quot;adminUser&quot;</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span>
+    <span class="s2">&quot;activated&quot;</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span>
+    <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;edort1&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;applicationId&quot;</span><span class="p">:</span> <span class="s2">&quot;00000000-0000-0000-0000-000000000001&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;uuid&quot;</span><span class="p">:</span> <span class="s2">&quot;328b526e-cd0c-11e1-bcf8-12424d1c4491&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;htmldisplayEmailAddress&quot;</span><span class="p">:</span> <span class="s2">&quot;jim.admin &lt;&lt;a href=&quot;</span><span class="n">mailto</span><span class="p">:</span><span class="n">jim</span><span class="o">.</span><span class="n">admin</span><span class="nd">@gmail</span><span class="o">.</span><span class="n">com</span><span class="s2">&quot;&gt;jim.admin@gmail.com&gt;&gt;&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;displayEmailAddress&quot;</span><span class="p">:</span> <span class="s2">&quot;jim.admin &lt;jim.admin@gmail.com&gt;&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;disabled&quot;</span><span class="p">:</span> <span class="n">false</span>
+  <span class="p">},</span>
+  <span class="s2">&quot;timestamp&quot;</span><span class="p">:</span> <span class="mi">1349480786906</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="setting-an-admin-user-s-password">
+<h2>Setting an admin user&#8217;s password<a class="headerlink" href="#setting-an-admin-user-s-password" title="Permalink to this headline">¶</a></h2>
+<p>Use the PUT method to update an admin user&#8217;s password.</p>
+<div class="section" id="id7">
+<h3>Request URI<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">PUT</span> <span class="o">/</span><span class="n">management</span><span class="o">/</span><span class="n">users</span><span class="o">/</span><span class="p">{</span><span class="n">user</span><span class="o">|</span><span class="n">username</span><span class="o">|</span><span class="n">email</span><span class="o">|</span><span class="n">uuid</span><span class="p">}</span><span class="o">/</span><span class="n">password</span> <span class="p">{</span><span class="n">request</span> <span class="n">body</span><span class="p">}</span>
+</pre></div>
+</div>
+<p>Parameters</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="32%" />
+<col width="68%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Parameters</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>User identifier</td>
+<td>Username, name, email address, or UUID.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="id8">
+<h3>Example - Request<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">curl</span> <span class="o">-</span><span class="n">X</span> <span class="n">GET</span> <span class="s2">&quot;https://api.tbaas.co/management/organizations/my-org/users/jim.admin&quot;</span>
+</pre></div>
+</div>
+<p>Example - Response</p>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">&quot;action&quot;</span><span class="p">:</span> <span class="s2">&quot;get admin user&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;ok&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;data&quot;</span><span class="p">:</span>  <span class="p">{</span>
+    <span class="s2">&quot;username&quot;</span><span class="p">:</span> <span class="s2">&quot;jim.admin&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;token&quot;</span><span class="p">:</span> <span class="s2">&quot;YWMt4NqE8Q9GEeLYJhIxPSiO4AAAATo5fQfcG0cEd2h9nwmDmRorkNNrEeQyDOF&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;email&quot;</span><span class="p">:</span> <span class="s2">&quot;edort1@gmail.com&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;organizations&quot;</span><span class="p">:</span>  <span class="p">{</span>
+      <span class="s2">&quot;jim.admin&quot;</span><span class="p">:</span>  <span class="p">{</span>
+        <span class="s2">&quot;users&quot;</span><span class="p">:</span>  <span class="p">{</span>
+          <span class="s2">&quot;jim.admin&quot;</span><span class="p">:</span>  <span class="p">{</span>
+            <span class="s2">&quot;applicationId&quot;</span><span class="p">:</span> <span class="s2">&quot;00000000-0000-0000-0000-000000000001&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;username&quot;</span><span class="p">:</span> <span class="s2">&quot;jim.admin&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Jim Admin&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;email&quot;</span><span class="p">:</span> <span class="s2">&quot;jim.admin@gmail.com&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;activated&quot;</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span>
+            <span class="s2">&quot;disabled&quot;</span><span class="p">:</span> <span class="n">false</span><span class="p">,</span>
+            <span class="s2">&quot;uuid&quot;</span><span class="p">:</span> <span class="s2">&quot;328b526e-cd0c-11e1-bcf8-12424d1c4491&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;adminUser&quot;</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span>
+            <span class="s2">&quot;displayEmailAddress&quot;</span><span class="p">:</span> <span class="s2">&quot;jim.admin &lt;jim.admin@gmail.com&gt;&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;htmldisplayEmailAddress&quot;</span><span class="p">:</span> <span class="s2">&quot;jim.admin &lt;&lt;a href=&quot;</span><span class="n">mailto</span><span class="p">:</span><span class="n">jim</span><span class="o">.</span><span class="n">admin</span><span class="nd">@gmail</span><span class="o">.</span><span class="n">com</span><span class="s2">&quot;&gt;jim.admin@gmail.com&gt;&quot;</span>
+    <span class="p">},</span>
+    <span class="o">...</span>
+    <span class="s2">&quot;adminUser&quot;</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span>
+    <span class="s2">&quot;activated&quot;</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span>
+    <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;edort1&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;applicationId&quot;</span><span class="p">:</span> <span class="s2">&quot;00000000-0000-0000-0000-000000000001&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;uuid&quot;</span><span class="p">:</span> <span class="s2">&quot;328b526e-cd0c-11e1-bcf8-12424d1c4491&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;htmldisplayEmailAddress&quot;</span><span class="p">:</span> <span class="s2">&quot;jim.admin &lt;&lt;a href=&quot;</span><span class="n">mailto</span><span class="p">:</span><span class="n">jim</span><span class="o">.</span><span class="n">admin</span><span class="nd">@gmail</span><span class="o">.</span><span class="n">com</span><span class="s2">&quot;&gt;jim.admin@gmail.com&gt;&gt;&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;displayEmailAddress&quot;</span><span class="p">:</span> <span class="s2">&quot;jim.admin &lt;jim.admin@gmail.com&gt;&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;disabled&quot;</span><span class="p">:</span> <span class="n">false</span>
+  <span class="p">},</span>
+  <span class="s2">&quot;timestamp&quot;</span><span class="p">:</span> <span class="mi">1349480786906</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="id9">
+<h2>Setting an admin user&#8217;s password<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h2>
+<p>Use the PUT method to update an admin user&#8217;s password.</p>
+<div class="section" id="id10">
+<h3>Request URI<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">PUT</span> <span class="o">/</span><span class="n">management</span><span class="o">/</span><span class="n">users</span><span class="o">/</span><span class="p">{</span><span class="n">user</span><span class="o">|</span><span class="n">username</span><span class="o">|</span><span class="n">email</span><span class="o">|</span><span class="n">uuid</span><span class="p">}</span><span class="o">/</span><span class="n">password</span> <span class="p">{</span><span class="n">request</span> <span class="n">body</span><span class="p">}</span>
+</pre></div>
+</div>
+<p>Parameters</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="32%" />
+<col width="68%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Parameters</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>User identifier</td>
+<td>Admin Username, name, email address, or UUID.</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="id11">
+<h2>Setting an admin user&#8217;s password<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h2>
+<p>Use the PUT method to update an admin user&#8217;s password.</p>
+<div class="section" id="id12">
+<h3>Request URI<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h3>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">PUT</span> <span class="o">/</span><span class="n">management</span><span class="o">/</span><span class="n">users</span><span class="o">/</span><span class="p">{</span><span class="n">user</span><span class="o">|</span><span class="n">username</span><span class="o">|</span><span class="n">email</span><span class="o">|</span><span class="n">uuid</span><span class="p">}</span><span class="o">/</span><span class="n">password</span> <span class="p">{</span><span class="n">request</span> <span class="n">body</span><span class="p">}</span>
+</pre></div>
+</div>
+<p>Parameters</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="32%" />
+<col width="68%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Parameters</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>User identifier</td>
+<td>Admin Username, name, email address, or UUID.</td>
+</tr>
+</tbody>
+</table>
+<p>Expects new and old password to be sent in request body:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">&quot;password&quot;</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">old_password</span><span class="o">&gt;</span>
+  <span class="s2">&quot;newpassword&quot;</span><span class="p">:</span><span class="o">&lt;</span><span class="n">new_password</span><span class="o">&gt;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id13">
+<h3>Example - Request<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h3>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">curl</span> <span class="o">-</span><span class="n">X</span> <span class="o">-</span><span class="n">i</span> <span class="n">PUT</span> <span class="s2">&quot;https://api.tbaas.co/management/users/jim.admin/password&quot;</span> <span class="o">-</span><span class="n">d</span> <span class="s1">&#39;{&quot;oldpassword&quot;:&quot;test123&quot;, &quot;newpassword&quot;:&quot;mynewpassword&quot;}&#39;</span>
+</pre></div>
+</div>
+<p>Example - Response</p>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">&quot;action&quot;</span><span class="p">:</span> <span class="s2">&quot;set user password&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;timestamp&quot;</span><span class="p">:</span> <span class="mi">1349714010142</span><span class="p">,</span>
+  <span class="s2">&quot;duration&quot;</span><span class="p">:</span> <span class="mi">0</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="resetting-an-admin-user-s-password">
+<h2>Resetting an admin user&#8217;s password<a class="headerlink" href="#resetting-an-admin-user-s-password" title="Permalink to this headline">¶</a></h2>
+<p>Resetting an admin user&#8217;s password is a two step process. In the first step, you initiate the password reset. This returns a browser page. The page includes a field for the user to enter his or her email address, and a field to enter a response to a Captcha challenge. In the second step, you handle the user&#8217;s responses from the form.</p>
+<div class="section" id="initiating-a-password-reset">
+<h3>Initiating a password reset<a class="headerlink" href="#initiating-a-password-reset" title="Permalink to this headline">¶</a></h3>
+<p>Use the GET method to initiate the password reset.</p>
+</div>
+<div class="section" id="id14">
+<h3>Request URI<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h3>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">GET</span> <span class="o">/</span><span class="n">management</span><span class="o">/</span><span class="n">organizations</span><span class="o">/</span><span class="p">{</span><span class="n">org</span><span class="p">}</span><span class="o">/</span><span class="n">users</span><span class="o">/</span><span class="n">resetpw</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id15">
+<h3>Example - Request<a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h3>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">curl</span> <span class="o">-</span><span class="n">X</span> <span class="n">GET</span> <span class="s2">&quot;https://api.tbaas.co/management/organizations/my-org/users/resetpw&quot;</span>
+</pre></div>
+</div>
+<p>Example - Response</p>
+<div class="code highlight-default"><div class="highlight"><pre><span></span>&lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD HTML 4.01 Transitional//EN&quot; &quot;http://www.w3.org/TR/html4/loose.dtd&quot;&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=ISO-8859-1&quot;&gt;
+    &lt;title&gt;Reset Password&lt;/title&gt;
+    &lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;../../css/styles.css&quot; /&gt;
+    &lt;script type=&quot;text/javascript&quot;&gt;&gt;
+        var RecaptchaOptions = {
+            theme : &#39;clean&#39;
+        };
+    &lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+    &lt;div class=&quot;dialog-area&quot;&gt;
+        &lt;div class=&quot;dialog-form-message&quot;&gt;Incorrect Captcha, try again...&lt;/div&gt;
+        &lt;form class=&quot;dialog-form&quot; action=&quot;&quot; method=&quot;post&quot;&gt;
+            &lt;fieldset&gt;
+                &lt;p&gt;
+                    &lt;label for=&quot;email&quot;&gt;Please type your &lt;strong&gt;email
+                            address&lt;/strong&gt; or &lt;strong&gt;username&lt;/strong&gt; below.&lt;/label&gt;
+                &lt;/p&gt;
+                &lt;p&gt;
+                    &lt;input class=&quot;text_field&quot; id=&quot;email&quot; name=&quot;email&quot; type=&quot;text&quot; /&gt;
+                &lt;/p&gt;
+                &lt;p id=&quot;human-proof&quot;&gt;&lt;/p&gt;
+                &lt;script type=&quot;text/javascript&quot; src=&quot;https://www.google.com/recaptcha/api/challenge?k=6LdSTNESAAAAAKHdVglHmMu86_EoYxsJjqQD1IpZ&quot;&gt;&lt;/script&gt;
+
+                &lt;p class=&quot;buttons&quot;&gt;
+                    &lt;button type=&quot;submit&quot;&gt;Submit&lt;/button&gt;
+                &lt;/p&gt;
+            &lt;/fieldset&gt;
+        &lt;/form&gt;
+    &lt;/div&gt;
+&lt;/pre&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="completing-a-password-reset">
+<h2>Completing a password reset<a class="headerlink" href="#completing-a-password-reset" title="Permalink to this headline">¶</a></h2>
+<p>Use the POST method to complete the password reset.</p>
+<div class="section" id="id16">
+<h3>Request URI<a class="headerlink" href="#id16" title="Permalink to this headline">¶</a></h3>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">POST</span> <span class="o">/</span><span class="n">management</span><span class="o">/</span><span class="n">organizations</span><span class="o">/</span><span class="p">{</span><span class="n">org</span><span class="p">}</span><span class="o">/</span><span class="n">users</span><span class="o">/</span><span class="n">resetpw</span> <span class="p">{</span><span class="n">request</span> <span class="n">body</span><span class="p">}</span>
+</pre></div>
+</div>
+<p>In the request body send parameters and value for the Captcha challenge, the admin user&#8217;s response to the Captcha challenge, and the admin user&#8217;s email address, for example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">&quot;recaptcha_response_field&quot;</span> <span class="p">:</span> <span class="s2">&quot;Atistophanes tseFia&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;recaptcha_challenge_field&quot;</span> <span class="p">:</span> <span class="s2">&quot;Atistophanes tseFia&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;email&quot;</span> <span class="p">:</span> <span class="s2">&quot;jim.admin@gmail.com&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id17">
+<h3>Example - Request<a class="headerlink" href="#id17" title="Permalink to this headline">¶</a></h3>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">curl</span> <span class="o">-</span><span class="n">X</span> <span class="o">-</span><span class="n">i</span> <span class="n">POST</span> <span class="s2">&quot;https://api.tbaas.co/management/organizations/my-org/users/resetpw&quot;</span> <span class="o">-</span><span class="n">d</span> <span class="s1">&#39;{&quot;recaptcha_response_field&quot;:&quot;Atistophanes tseFia&quot;,&quot;recaptcha_challenge_field&quot;:&quot;Atistophanes tseFia&quot;,&quot;email&quot;:&quot;jim.admin@gmail.com&quot;}&#39;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id18">
+<h3>Example - Response<a class="headerlink" href="#id18" title="Permalink to this headline">¶</a></h3>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">&quot;action&quot;</span><span class="p">:</span> <span class="s2">&quot;reset user password&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;timestamp&quot;</span><span class="p">:</span> <span class="mi">13546154010321</span><span class="p">,</span>
+  <span class="s2">&quot;duration&quot;</span><span class="p">:</span> <span class="mi">0</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="activating-an-admin-user">
+<h2>Activating an admin user<a class="headerlink" href="#activating-an-admin-user" title="Permalink to this headline">¶</a></h2>
+<p>Use the GET method to activate an admin user from a link provided in an email notification.</p>
+<div class="section" id="id19">
+<h3>Request URI<a class="headerlink" href="#id19" title="Permalink to this headline">¶</a></h3>
+<div class="code highlight-default"><div class="highlight"><pre><span></span>GET /management/organizations/{org}/users/{user|username|email|uuid}/activate?token={token}&amp;confirm={confirm_email}
+</pre></div>
+</div>
+<p>Parameters</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="32%" />
+<col width="68%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Parameters</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>User identifier</td>
+<td>Admin username, name, email address, or UUID.</td>
+</tr>
+<tr class="row-odd"><td>string token</td>
+<td>Activation token (supplied via email).</td>
+</tr>
+<tr class="row-even"><td>confirm_email</td>
+<td>Send confirmation email (false is the default).</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="id20">
+<h3>Example - Request<a class="headerlink" href="#id20" title="Permalink to this headline">¶</a></h3>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">curl</span> <span class="o">-</span><span class="n">X</span> <span class="n">GET</span> <span class="s2">&quot;https://api.tbaas.co/management/organizations/my-org/users/jim.admin/activate?token=33dd0563-cd0c-11e1-bcf7-12313d1c4491&quot;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id21">
+<h3>Example - Response<a class="headerlink" href="#id21" title="Permalink to this headline">¶</a></h3>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">&quot;action&quot;</span><span class="p">:</span> <span class="s2">&quot;activate user&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;timestamp&quot;</span><span class="p">:</span> <span class="mi">1349718021324</span><span class="p">,</span>
+  <span class="s2">&quot;duration&quot;</span><span class="p">:</span> <span class="mi">0</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="reactivating-an-admin-user">
+<h2>Reactivating an admin user<a class="headerlink" href="#reactivating-an-admin-user" title="Permalink to this headline">¶</a></h2>
+<p>Use the GET method to reactivate an admin user.</p>
+<div class="section" id="id22">
+<h3>Request URI<a class="headerlink" href="#id22" title="Permalink to this headline">¶</a></h3>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">GET</span> <span class="o">/</span><span class="n">management</span><span class="o">/</span><span class="n">organizations</span><span class="o">/</span><span class="p">{</span><span class="n">org</span><span class="p">}</span><span class="o">/</span><span class="n">users</span><span class="o">/</span><span class="p">{</span><span class="n">user</span><span class="o">|</span><span class="n">username</span><span class="o">|</span><span class="n">email</span><span class="o">|</span><span class="n">uuid</span><span class="p">}</span><span class="o">/</span><span class="n">reactivate</span>
+</pre></div>
+</div>
+<p>Parameters</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="32%" />
+<col width="68%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Parameters</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>User identifier</td>
+<td>Admin username, name, email address, or UUID.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="id23">
+<h3>Example - Request<a class="headerlink" href="#id23" title="Permalink to this headline">¶</a></h3>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">curl</span> <span class="o">-</span><span class="n">X</span> <span class="n">GET</span> <span class="s2">&quot;https://api.tbaas.co/management/organizations/my-org/users/jim.admin/feed&quot;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id24">
+<h3>Example - Response<a class="headerlink" href="#id24" title="Permalink to this headline">¶</a></h3>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">&quot;action&quot;</span><span class="p">:</span> <span class="s2">&quot;get admin user feed&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;ok&quot;</span><span class="p">,</span>
+ <span class="s2">&quot;entities&quot;</span><span class="p">:</span>  <span class="p">[</span>
+     <span class="p">{</span>
+      <span class="s2">&quot;uuid&quot;</span><span class="p">:</span> <span class="s2">&quot;cf3e981c-fe80-11e1-95c8-12331b144c65&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;activity&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;created&quot;</span><span class="p">:</span> <span class="mi">1347643370454</span><span class="p">,</span>
+      <span class="s2">&quot;modified&quot;</span><span class="p">:</span> <span class="mi">1347643370454</span><span class="p">,</span>
+      <span class="s2">&quot;actor&quot;</span><span class="p">:</span>  <span class="p">{</span>
+        <span class="s2">&quot;displayName&quot;</span><span class="p">:</span> <span class="s2">&quot;jim.admin&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;objectType&quot;</span><span class="p">:</span> <span class="s2">&quot;person&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;uuid&quot;</span><span class="p">:</span> <span class="s2">&quot;335b527f-cd0d-11e1-bef8-12331d1c5591&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;entityType&quot;</span><span class="p">:</span> <span class="s2">&quot;user&quot;</span>
+      <span class="p">},</span>
+      <span class="s2">&quot;category&quot;</span><span class="p">:</span> <span class="s2">&quot;admin&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;metadata&quot;</span><span class="p">:</span>  <span class="p">{</span>
+        <span class="s2">&quot;cursor&quot;</span><span class="p">:</span> <span class="s2">&quot;gGkAAQMAgGkABgE5xc3r1gCAdQAQz02YHP6QEeGVyBIxOxIsVgCAdQAQz4ZbYf6QEeGVyBIxOxIsVgA&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;path&quot;</span><span class="p">:</span> <span class="s2">&quot;/users/327b527f-cd0c-11e1-bcf7-12313d1c4491/feed/cf4d981c-fe90-11e1-95c8-12313b122c56&quot;</span>
+      <span class="p">},</span>
+    <span class="s2">&quot;object&quot;</span><span class="p">:</span>  <span class="p">{</span>
+    <span class="o">...</span>
+    <span class="p">},</span>
+    <span class="s2">&quot;published&quot;</span><span class="p">:</span> <span class="mi">1342198809251</span><span class="p">,</span>
+            <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;&lt;a mailto=&quot;</span><span class="n">jim</span><span class="o">.</span><span class="n">admingmail</span><span class="o">.</span><span class="n">com</span><span class="s2">&quot;&gt;jim.admin (jim.admin@gmail.com)&lt;/a&gt; created a new organization account named jim.admin&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;verb&quot;</span><span class="p">:</span> <span class="s2">&quot;create&quot;</span>
+          <span class="p">}</span>
+        <span class="p">],</span>
+  <span class="s2">&quot;timestamp&quot;</span><span class="p">:</span> <span class="mi">1349735719320</span><span class="p">,</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <p class="caption"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../introduction/create-account.html">Creating a Nobackend Account</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../introduction/create-application.html">Creating a new application</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../introduction/using-sandbox.html">Using a Sandbox Application</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../introduction/using-api.html">Using the API</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Data Storage</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../datastorage/nobackend-datastore.html">The Nobackend Data Store</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../datastorage/datastore-practice.html">Data Store Best Practice</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../datastorage/collection.html">Collection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../datastorage/entities.html">Entities</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Data Queries</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../dataqueries/querying-data.html">Querying your data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dataqueries/query-parameter.html">Query parameters &amp; clauses</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Entity Connections</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../entityconnections/connecting-entities.html">Connecting entities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../entityconnections/retrieve-connection.html">Retrieving Connections</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../entityconnections/disconnecting-entities.html">Disconnecting entities</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Push Notifications</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../pushnotification/adding-push.html">Adding Push Notification Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pushnotification/started-push.html">Getting started with push notifications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pushnotification/sample-app.html">Tutorial: Push notifications sample app</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pushnotification/register-notification.html">Registering with a notification service</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pushnotification/create-notifier.html">Creating Notifier</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pushnotification/managing-userdevices.html">Managing users and devices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pushnotification/creating-notification.html">Creating and managing notifications</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Security &amp; Token Authentication</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../securityauthentication/security-auth.html">Security &amp; Token Authentication</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../securityauthentication/auth-user.html">Authenticating Users &amp; App Clients</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../securityauthentication/auth-api.html">Authenticating API requests</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../securityauthentication/revoking-token.html">Revoking tokens (logout)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../securityauthentication/best-practice.html">Security best practices</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Geolocation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../geolocation/geolocation-entities.html">Geolocating your Entities</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Assets &amp; Files</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../assetfiles/uploading-assets.html">Uploading assets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../assetfiles/retrieving-assets.html">Retrieving assets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../assetfiles/folders.html">Folders</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Organization &amp; Application Management</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="orgapp-management.html">Organization &amp; application management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="organization.html">Organization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="application.html">Application</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Admin user</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#creating-an-admin-user">Creating an admin user</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#request-uri">Request URI</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#example-request">Example - Request</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#example-response">Example - Response</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#updating-an-admin-user">Updating an admin user</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">Request URI</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">Example - Request</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">Example - Response</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#getting-an-admin-user">Getting an admin user</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id4">Request URI</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id5">Example - Request</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id6">Example - Response</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#setting-an-admin-user-s-password">Setting an admin user&#8217;s password</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id7">Request URI</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id8">Example - Request</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#id9">Setting an admin user&#8217;s password</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id10">Request URI</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#id11">Setting an admin user&#8217;s password</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id12">Request URI</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id13">Example - Request</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#resetting-an-admin-user-s-password">Resetting an admin user&#8217;s password</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#initiating-a-password-reset">Initiating a password reset</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id14">Request URI</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id15">Example - Request</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#completing-a-password-reset">Completing a password reset</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id16">Request URI</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id17">Example - Request</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id18">Example - Response</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#activating-an-admin-user">Activating an admin user</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id19">Request URI</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id20">Example - Request</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id21">Example - Response</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#reactivating-an-admin-user">Reactivating an admin user</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id22">Request URI</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id23">Example - Request</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id24">Example - Response</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">User Management &amp; Social</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../usermanagement/working-userdata.html">Working with User Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../usermanagement/working-groupdata.html">Working with group data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../usermanagement/activity.html">Activity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../usermanagement/social-graph.html">Social Graph Connections</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../usermanagement/creating-connection.html">Creating other connections</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Counter &amp; Event</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../counterevent/creating-counters.html">Creating &amp; incrementing counters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../counterevent/resetting-counters.html">Decrementing/resetting counters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../counterevent/retrieving-counters.html">Retrieving counters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../counterevent/using-counters.html">Using counters hierarchically</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Api Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../apireference/methods.html">Methods</a></li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="application.html"
+                        title="previous chapter">Application</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="../usermanagement/working-userdata.html"
+                        title="next chapter">Working with User Data</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/orgappmanagement/admin-user.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../usermanagement/working-userdata.html" title="Working with User Data"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="application.html" title="Application"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">Nobackend.id 1.0.0 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2016, MXP.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.9.
+    </div>
+  </body>
+</html>
